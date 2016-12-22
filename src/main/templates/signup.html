@@ -1,3 +1,22 @@
 <h1>Signup</h1>
-<a ui-sref="login">login</a>
+<div class="col-md-8">
+    <form>
+      <div class="form-group">
+        <label for="inputUsername">Username</label>
+        <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <label for="inputPassword1">Password</label>
+        <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+      </div>
+      <div class="form-group">
+        <label for="inputPassword2">Password confirm</label>
+        <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+      </div>
+      <div class="text-right">
+          <button type="submit" class="btn btn-default">Submit</button>
+          <a ui-sref="login" class="btn btn-link">Log in</a>
+      </div>
+    </form>
+</div>
 
