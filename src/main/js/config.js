@@ -11,14 +11,14 @@
         $stateProvider
             .state("login", {
                 url: "/login",
-                // controller: 'loginCtrl',
-                // controllerAs: 'ctrl',
+                controller: 'loginCtrl',
+                controllerAs: 'ctrl',
                 templateUrl: "src/main/templates/login.html"
             })
             .state("signup", {
                 url: "/signup",
-                // controller: 'registerCtrl',
-                // controllerAs: 'ctrl',
+                controller: 'signupCtrl',
+                controllerAs: 'ctrl',
                 templateUrl: "src/main/templates/signup.html"
             });
     }

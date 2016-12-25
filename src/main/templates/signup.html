@@ -1,22 +1,26 @@
+<div ng-controller="signupCtrl">
 <h1>Signup</h1>
+<div class="alert alert-danger" role="alert" ng-show="error">
+    {{ error }}
+</div>
 <div class="col-md-8">
     <form>
       <div class="form-group">
         <label for="inputUsername">Username</label>
-        <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+        <input type="text" class="form-control" id="inputUsername" placeholder="Username" ng-model="username">
       </div>
       <div class="form-group">
         <label for="inputPassword1">Password</label>
-        <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+        <input type="password" class="form-control" id="inputPassword1" placeholder="Password" ng-model="password">
       </div>
       <div class="form-group">
         <label for="inputPassword2">Password confirm</label>
-        <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+        <input type="password" class="form-control" id="inputPassword2" placeholder="Password again" ng-model="password_confirm">
       </div>
       <div class="text-right">
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default" ng-click="signUp()">Submit</button>
           <a ui-sref="login" class="btn btn-link">Log in</a>
       </div>
     </form>
 </div>
-
+</div>
