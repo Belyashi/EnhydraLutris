@@ -1,0 +1,91 @@
+<div ng-controller="mainCtrl">
+    <h1>Main page</h1>
+    <div class="alert alert-danger" role="alert" ng-show="error">
+        {{ error }} <a href=# ng-click="logOut()">Log out</a>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Available stocks
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover" ng-show="stocks">
+                    <tr>
+                        <th>Market</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Tag</th>
+                    </tr>
+                    <tr ng-repeat="stock in stocks" ng-click="details(stock.tag)">
+                        <td>{{ stock.market }}</td>
+                        <td>{{ stock.code }}</td>
+                        <td>{{ stock.name }}</td>
+                        <td>{{ stock.tag }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                My active stocks
+            </div>
+            <div class="panel-body">
+                <table class="table" ng-show="stocks">
+                    <tr>
+                        <th>Code</th>
+                        <th>Amount</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr ng-repeat="ticket in tickets">
+                        <td>{{ stock_code(ticket.stock_id) }}</td>
+                        <td>{{ ticket.count }}</td>
+                        <td>${{ ticket.price }}</td>
+                        <td>
+                            <span class="label label-success" ng-hide="ticket.buy">Sell</span>
+                            <span class="label label-warning" ng-show="ticket.buy">Buy</span>
+                        </td>
+                        <td>{{ ticket.duration }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+    <div class="panel panel-default" ng-show="selectedStock">
+        <div class="panel-heading">
+            {{ stock_name(selectedStock) }} stock price timeline
+            <button type="button" class="close" ng-click="hide_details()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="panel-body">
+        {{ selectedStock }}
+        </div>
+    </div></div>
+    
+    <div class="col-md-4">
+        <div class="panel panel-default" ng-show="selectedStock">
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label for="priceInput">Price</label>
+                        <input type="number" class="form-control" id="priceInput" placeholder="Price">
+                    </div>
+                    <div class="form-group">
+                        <label for="amountInput ">Amount</label>
+                        <input type="number" class="form-control" id="amountInput" placeholder="Amount">
+                    </div>
+                    <button type="button" class="btn btn-success col-md-6">Buy</button>
+                    <button type="button" class="btn btn-warning col-md-6">Sell</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

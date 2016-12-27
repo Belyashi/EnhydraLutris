@@ -1,10 +1,13 @@
-<div class="jumbotron">
+<div class="jumbotron col-md-8">
   <h1><img src="/src/app/img/logo.png" style="width:320px;"></h1>
   <p>belphin! It's like a dolphin but with be!</p>
   <!--<p>belphin! Это как дельфин, только на b!</p>-->
 </div>
-<h1>Login</h1>
-<div class="col-md-8">
+<div class="col-md-4" ng-controller="loginCtrl">
+    <h1>Login</h1>
+    <div class="alert alert-danger" role="alert" ng-show="error">
+        {{ error }}
+    </div>
     <form>
       <div class="form-group">
         <label for="inputUsername">Username</label>
@@ -15,7 +18,7 @@
         <input type="password" class="form-control" id="inputPassword1" placeholder="Password" ng-model="password">
       </div>
       <div class="text-right">
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default" ng-click="signIn()">Submit</button>
           <a ui-sref="signup" class="btn btn-link">Create account</a>
       </div>
     </form>
