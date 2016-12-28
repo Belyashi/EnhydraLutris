@@ -19,7 +19,6 @@
                 $scope.stocks = response.data;
             }, function (response) {
                 $scope.error = "Unknown server error";
-                //LocalStorage.remove('token');
             });
             
             $http({
@@ -33,12 +32,51 @@
                 $scope.tickets = response.data;
             }, function (response) {
                 $scope.error = "Unknown server error";
-                //LocalStorage.remove('token');
             });
             
             $scope.details = function (tag){
                 console.log(tag);
                 $scope.selectedStock = tag;
+                $http({
+                    method: 'GET',
+                    url: '/stocks/'+tag+'/history',
+                    params: {
+                        'token': auth_token
+                    }
+                }).then(function (response) {
+                    console.log(response.data);
+                }, function (response) {
+                    $scope.error = "Unknown server error";
+                });
+            };
+            
+            $scope.open_stock = function (bid){
+                if (!$scope.stock_amount || !$scope.stock_price){
+                    $scope.error = "Put correct price/amount"
+                    return;
+                }
+                else $scope.error = null;
+                    
+                obj = {
+                    'stock_id': 1,
+                    'count': $scope.stock_amount,
+                    'price': $scope.stock_price,
+                    'buy': bid
+                };
+                console.log(obj);
+                $http({
+                    method: 'POST',
+                    url: '/tickets/',
+                    data: obj,
+                    params: {
+                        'token': auth_token
+                    }
+                }).then(function (response) {
+                    console.log(response.data);
+                    $scope.tickets = response.data;
+                }, function (response) {
+                    $scope.error = "Unknown server error";
+                });
             };
             
             $scope.hide_details = function (){
