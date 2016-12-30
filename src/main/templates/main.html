@@ -1,7 +1,7 @@
 <div ng-controller="mainCtrl">
-    <h1>Main page</h1>
+    <div><h1>Main page</h1><a href=# ng-click="logOut()">Log out</a></div>
     <div class="alert alert-danger" role="alert" ng-show="error">
-        {{ error }} <a href=# ng-click="logOut()">Log out</a>
+        {{ error }} 
     </div>
     <div class="col-md-8">
         <div class="panel panel-default">
@@ -16,7 +16,7 @@
                         <th>Name</th>
                         <th>Tag</th>
                     </tr>
-                    <tr ng-repeat="stock in stocks" ng-click="details(stock.tag)">
+                    <tr ng-repeat="stock in stocks" ng-click="details(stock.tag, stock.id)">
                         <td>{{ stock.market }}</td>
                         <td>{{ stock.code }}</td>
                         <td>{{ stock.name }}</td>
@@ -43,16 +43,19 @@
                         <th>&nbsp</th>
                     </tr>
                     <tr ng-repeat="ticket in tickets">
-                        <td>{{ stock_code(ticket.stock_id) }}</td>
+                        <td>{{ stock_name_by_id(ticket.stock_id) }}</td>
                         <td>{{ ticket.count }}</td>
                         <td>${{ ticket.price }}</td>
                         <td>
-                            <span class="label label-success" ng-hide="ticket.buy">Sell</span>
-                            <span class="label label-warning" ng-show="ticket.buy">Buy</span>
+                            <span class="label label-warning" ng-hide="ticket.buy">Sell</span>
+                            <span class="label label-success" ng-show="ticket.buy">Buy</span>
                         </td>
-                        <td>{{ ticket.duration }}</td>
                         <td>
-                            <button type="button" class="close" ng-click="close_stock()">
+                            <span class="label label-info" ng-show="ticket.opened">Opened</span>
+                            <span class="label label-default" ng-hide="ticket.opened">Closed</span>
+                        </td>
+                        <td>
+                            <button type="button" class="close" ng-click="close_stock(ticket.id)">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </td>
@@ -65,14 +68,20 @@
     <div class="col-md-8">
     <div class="panel panel-default" ng-show="selectedStock">
         <div class="panel-heading">
-            {{ stock_name(selectedStock) }} stock price timeline
+            {{ stock_name_by_id(selectedStock) }} stock price timeline
             <button type="button" class="close" ng-click="hide_details()">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="panel-body">
-            <div id="chart_div"></div>
-        {{ selectedStock }}
+            <div class="row">
+            <div class="col-md-8">&nbsp</div><div class="form-group col-md-4">
+                <label for="tickCount">Ticks swowed</label>
+                <input type="number" class="form-control" id="tickCount" ng-init="tickCount=16" ng-model="tickCount">
+            </div></div>
+            <div class="row">
+                <div id="chart_div"></div>
+            </div>
         </div>
     </div></div>
     
@@ -88,10 +97,10 @@
                         <label for="amountInput ">Amount</label>
                         <input type="number" class="form-control" id="amountInput" placeholder="Amount" ng-model="stock_amount">
                     </div>
-                    <button type="button" class="btn btn-success col-md-6" ng-click="open_stock(true)">
+                    <button type="button" class="btn btn-success col-md-6" ng-click="open_stock(selectedStockId, true)">
                         Buy
                     </button>
-                    <button type="button" class="btn btn-warning col-md-6" ng-click="open_stock(false)">
+                    <button type="button" class="btn btn-warning col-md-6" ng-click="open_stock(selectedStockId, false)">
                         Sell
                     </button>
                 </form>
